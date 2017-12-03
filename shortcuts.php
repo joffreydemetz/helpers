@@ -11,8 +11,8 @@
  * 
  * Accepts a variable number of arguments. See every helper methods for details.
  * 
- * @param 	string  $method  Method name
- * @return 	string
+ * @param   string  $method  Method name
+ * @return   string
  * @author  Joffrey Demetz <joffrey.demetz@gmail.com>
  */
 function Str($method)

@@ -14,35 +14,35 @@ namespace JDZ\Helpers;
  */
 class AttributesHelper
 {
-	/**
-	 * Parse html tag attributes
-	 *
-	 * @param 	string   $string  The tag attributes
-	 * @return 	array    Key/Value pairs
-	 */
-	public static function parse($string)
-	{
-		$attr = [];
-		$list = [];
+  /**
+   * Parse html tag attributes
+   *
+   * @param   string   $string  The tag attributes
+   * @return   array    Key/Value pairs
+   */
+  public static function parse($string)
+  {
+    $attr = [];
+    $list = [];
 
     preg_match_all('/([\w:-]+)[\s]?=[\s]?"([^"]*)"/i', $string, $attr);
 
-		if ( is_array($attr) ){
-			$numPairs = count($attr[1]);
-			for ($i = 0; $i < $numPairs; $i++){
-				$list[$attr[1][$i]] = $attr[2][$i];
-			}
-		}
+    if ( is_array($attr) ){
+      $numPairs = count($attr[1]);
+      for ($i = 0; $i < $numPairs; $i++){
+        $list[$attr[1][$i]] = $attr[2][$i];
+      }
+    }
     
-		return $list;
-	}
+    return $list;
+  }
   
-	/**
-	 * Merge html tag attributes to string
-	 *
-	 * @param 	array    $attrs  Key/Value pairs
-	 * @return 	string   The tag attributes as a string
-	 */
+  /**
+   * Merge html tag attributes to string
+   *
+   * @param   array    $attrs  Key/Value pairs
+   * @return   string   The tag attributes as a string
+   */
   public static function merge(array $attrs=[])
   {
     $attrs = (array)$attrs;

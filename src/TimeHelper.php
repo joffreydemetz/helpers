@@ -16,23 +16,23 @@ use DateTime;
  */
 abstract class TimeHelper 
 {
-	/**
-	 * Get the current time.
+  /**
+   * Get the current time.
    * 
-	 * @return 	float The current time
-	 */
-	public static function getmicrotime()
-	{
-		// list ($usec, $sec) = explode(' ', microtime());
-		// return ((float) $usec + (float) $sec);
-		return microtime(true);
-	}
+   * @return   float The current time
+   */
+  public static function getmicrotime()
+  {
+    // list ($usec, $sec) = explode(' ', microtime());
+    // return ((float) $usec + (float) $sec);
+    return microtime(true);
+  }
   
-	/**
-	 * Convert second to readable format
-	 * @param 	int   $seconds  Number of seconds
-	 * @return 	string The readable time
-	 */
+  /**
+   * Convert second to readable format
+   * @param   int   $seconds  Number of seconds
+   * @return   string The readable time
+   */
   public static function secondsToTime($seconds)
   {
     $dtF = new DateTime('@0');

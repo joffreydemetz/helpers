@@ -3,7 +3,7 @@
     "description": "Some usefull helpers",
     "keywords": ["helper","array","string","time","attributes"],
     "homepage": "http://joffreydemetz.com/git/helpers/",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "license": "MIT",
 
     "authors": [
@@ -21,13 +21,10 @@
     
     "autoload": {
         "psr-4": {
-            "JDZ\\Helpers\\": ""
+            "JDZ\\Helpers\\": "src"
         },
         "files": [
             "shortcuts.php"
-        ],
-        "exclude-from-classmap": [
-            "/Tests/"
         ]
     }
 }
