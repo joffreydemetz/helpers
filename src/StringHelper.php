@@ -19,12 +19,30 @@ abstract class StringHelper
   /** 
    * Clean textarea field content
    * 
+   * use with imperavi redactor field
+   * 
    * @param   string  $str  Field content
    * @return   string Cleaned string
    */
   public static function cleanTextarea($str)
   {
     $str = str_replace('&nbsp;', ' ', $str);
+    
+    $str = preg_replace_callback("/<img ([^>]+)>/", function($m){
+      $attrs = AttributesHelper::parse($m[1]);
+      if ( isset($attrs['data-src']) ){
+        $attrs['src'] = $attrs['data-src'];
+        unset($attrs['data-src']);
+      }
+      return '<img '.AttributesHelper::merge($attrs).' />';
+    }, $str);
+    
+    // $str = preg_replace("/<div class=\"redactor-iframe-clickable\"[^>]*><\/div>/", "", $str);
+    $str = preg_replace("/<div class=\"redactor-iframe-clickable\"><\/div>/", "", $str);
+    
+    // JizyVideo
+    $str = preg_replace("/ allowfullscreen=\"(true)?\"/", " allowfullscreen", $str);
+    
     return $str;
   }
   

@@ -1,9 +1,10 @@
 {
     "name": "jdz/helpers",
+	"type": "library",
     "description": "Some usefull helpers",
     "keywords": ["helper","array","string","time","attributes"],
     "homepage": "http://joffreydemetz.com/git/helpers/",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "license": "MIT",
 
     "authors": [
