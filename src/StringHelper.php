@@ -19,12 +19,33 @@ abstract class StringHelper
   /** 
    * Clean textarea field content
    * 
+   * @param   string  $str  Field content
+   * @return  string Cleaned string
+   */
+  public static function cleanTextarea($str)
+  {
+    $str = str_replace('&nbsp;', ' ', $str);
+    $str = preg_replace("/[\r\n]{2,}/", "\n\n", $str);
+    
+    if ( !preg_match("/<p>.+<\/p>/", $str) ){
+      $str = '<p>'.$str.'</p>';
+    }
+    $str = preg_replace("/\n\n/", "</p> <p>", $str);
+    $str = preg_replace("/\n/", "<br />", $str);
+    // debugMe($str)->end();
+    
+    return $str;
+  }
+  
+  /** 
+   * Clean html field content
+   * 
    * use with imperavi redactor field
    * 
    * @param   string  $str  Field content
    * @return   string Cleaned string
    */
-  public static function cleanTextarea($str)
+  public static function cleanRedactor($str)
   {
     $str = str_replace('&nbsp;', ' ', $str);
     
