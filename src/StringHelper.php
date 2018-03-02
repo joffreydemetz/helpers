@@ -17,6 +17,19 @@ use ErrorException;
 abstract class StringHelper
 {  
   /** 
+   * Clean textarea field content with no html
+   * 
+   * @param   string  $str  Field content
+   * @return  string Cleaned string
+   */
+  public static function cleanText($str)
+  {
+    $str = str_replace('&nbsp;', ' ', $str);
+    $str = strip_tags($str);
+    return $str;
+  }
+  
+  /** 
    * Clean textarea field content
    * 
    * @param   string  $str  Field content
@@ -32,6 +45,8 @@ abstract class StringHelper
     }
     $str = preg_replace("/\n\n/", "</p> <p>", $str);
     $str = preg_replace("/\n/", "<br />", $str);
+    $str = preg_replace("/<p><\/p>/", "", $str);
+    $str = trim($str);
     // debugMe($str)->end();
     
     return $str;
