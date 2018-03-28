@@ -47,7 +47,6 @@ abstract class StringHelper
     $str = preg_replace("/\n/", "<br />", $str);
     $str = preg_replace("/<p><\/p>/", "", $str);
     $str = trim($str);
-    // debugMe($str)->end();
     
     return $str;
   }

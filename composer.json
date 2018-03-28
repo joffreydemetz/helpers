@@ -4,7 +4,7 @@
     "description": "Some usefull helpers",
     "keywords": ["helper","array","string","time","attributes"],
     "homepage": "http://joffreydemetz.com/git/helpers/",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "license": "MIT",
 
     "authors": [
