@@ -13,7 +13,7 @@
  * 
  * @param   string  $method  Method name
  * @return   string
- * @author  Joffrey Demetz <joffrey.demetz@gmail.com>
+ * @author Joffrey Demetz <joffrey.demetz@gmail.com>
  */
 function Str($method)
 {

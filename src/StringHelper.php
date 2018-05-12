@@ -89,7 +89,7 @@ abstract class StringHelper
    */
   public static function removeAccents($str)
   {
-    // $str = Callisto()->language->transliterate($str);
+    // $str = Callisto()->getLanguage()->transliterate($str);
     $str = htmlentities($str, ENT_NOQUOTES, 'utf-8');
     $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
     $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
