@@ -54,31 +54,39 @@ abstract class StringHelper
   /** 
    * Clean html field content
    * 
-   * use with imperavi redactor field
+   * use with imperavi redactor
    * 
-   * @param   string  $str  Field content
-   * @return   string Cleaned string
+   * @param  string  $html  Html content
+   * @return string  Cleaned html
    */
-  public static function cleanRedactor($str)
+  public static function cleanRedactor($html)
   {
-    $str = str_replace('&nbsp;', ' ', $str);
+    $html = str_replace('&nbsp;', ' ', $html);
     
-    $str = preg_replace_callback("/<img ([^>]+)>/", function($m){
+    $html = strip_tags($html, '<code><span><div><label><a><br><p><b><i><del><strike><u><img><video><audio><iframe><object><embed><param><blockquote><mark><cite><small><ul><ol><li><hr><dl><dt><dd><sup><sub><big><pre><code><figure><figcaption><strong><em><table><tr><td><th><tbody><thead><tfoot><h1><h2><h3><h4><h5><h6>');
+    
+    $html = preg_replace_callback("/<img ([^>]+)>/", function($m){
       $attrs = AttributesHelper::parse($m[1]);
+      
       if ( isset($attrs['data-src']) ){
         $attrs['src'] = $attrs['data-src'];
         unset($attrs['data-src']);
       }
+      
+      if ( isset($attrs['data-image']) ){
+        unset($attrs['data-image']);
+      }
+      
       return '<img '.AttributesHelper::merge($attrs).' />';
-    }, $str);
+    }, $html);
     
-    // $str = preg_replace("/<div class=\"redactor-iframe-clickable\"[^>]*><\/div>/", "", $str);
-    $str = preg_replace("/<div class=\"redactor-iframe-clickable\"><\/div>/", "", $str);
+    // $html = preg_replace("/<div class=\"redactor-iframe-clickable\"[^>]*><\/div>/", "", $html);
+    $html = preg_replace("/<div class=\"redactor-iframe-clickable\"><\/div>/", "", $html);
     
     // JizyVideo
-    $str = preg_replace("/ allowfullscreen=\"(true)?\"/", " allowfullscreen", $str);
+    $html = preg_replace("/ allowfullscreen=\"(true)?\"/", " allowfullscreen", $html);
     
-    return $str;
+    return $html;
   }
   
   /**
@@ -403,7 +411,10 @@ abstract class StringHelper
    */
   public static function array2string(array $val, $separator=', ')
   {
-    return implode($separator, $val);
+    if ( $val ){
+      return implode($separator, $val);
+    } 
+    return 'NONE';
   }
   
   /**

@@ -11,9 +11,8 @@
  * 
  * Accepts a variable number of arguments. See every helper methods for details.
  * 
- * @param   string  $method  Method name
- * @return   string
- * @author Joffrey Demetz <joffrey.demetz@gmail.com>
+ * @param  string  $method  Method name
+ * @return string
  */
 function Str($method)
 {
@@ -28,7 +27,7 @@ function Str($method)
   
   $str = call_user_func_array($methodCall, $args);
   
-  if ( function_exists('i18n') && in_array($method, ['yesno', 'boolean', 'string']) && in_array($str, ['YES','NO','ON','OFF','NONE']) ){
+  if ( function_exists('i18n') && in_array($method, ['yesno', 'boolean', 'string', 'array2string']) && in_array($str, ['YES','NO','ON','OFF','NONE']) ){
     $str = i18n($str);
   }
   
