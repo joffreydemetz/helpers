@@ -17,6 +17,19 @@ use ErrorException;
 abstract class StringHelper
 {  
   /** 
+   * Clean for usort callback
+   * 
+   * @param  string  $str
+   * @return string 
+   */
+  public static function cleanForOrder(string $str): string
+  {
+    $str = self::removeAccents($str);
+    $str = preg_replace("/^[^a-z0-9]/i", "", $str);
+    return $str;
+  }
+  
+  /** 
    * Clean textarea field content with no html
    * 
    * @param   string  $str  Field content
@@ -97,7 +110,6 @@ abstract class StringHelper
    */
   public static function removeAccents($str)
   {
-    // $str = Callisto()->getLanguage()->transliterate($str);
     $str = htmlentities($str, ENT_NOQUOTES, 'utf-8');
     $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
     $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
@@ -185,6 +197,20 @@ abstract class StringHelper
     $str = preg_replace('/(\s|[^A-Za-z0-9\-])+/', '-', $str);
     $str = trim($str, '-');
     return $str;
+  }
+  
+  /**
+   * Convert a string into a valid filename
+   *
+   * @param  string  $str  The string input
+   * @return string 
+   */
+  public static function toFilename(string $str)
+  {
+    $clean = implode(' ', self::splitCamelCase($str));
+    $clean = self::toSlug($clean);
+    $clean = self::toDashSeparated($clean);
+    return $clean;
   }
   
   /**
