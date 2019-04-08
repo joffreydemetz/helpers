@@ -57,6 +57,20 @@ class AttributesHelper
         }
       }
       
+      if ( true === $value ){
+        $value = 'true';
+      }
+      elseif ( false === $value ){
+        $value = 'false';
+      }
+      else {
+        $value = trim($value);
+      }
+      
+      // if ( '' === $value ){
+        // $value = $key;
+      // }
+      
       $attributes[] = $key.'="'.str_replace('"', '\"', trim($value)).'"';
     }
     

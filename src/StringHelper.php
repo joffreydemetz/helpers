@@ -25,7 +25,8 @@ abstract class StringHelper
   public static function cleanForOrder(string $str): string
   {
     $str = self::removeAccents($str);
-    $str = preg_replace("/^[^a-z0-9]/i", "", $str);
+    $str = preg_replace("/^[^a-z0-9 ]/i", "", $str);
+    $str = trim($str);
     return $str;
   }
   
@@ -52,13 +53,15 @@ abstract class StringHelper
   {
     $str = str_replace('&nbsp;', ' ', $str);
     $str = preg_replace("/[\r\n]{2,}/", "\n\n", $str);
+    $str = preg_replace("/<br([^>]*)>/", "\n", $str);
     
-    if ( !preg_match("/<p>.+<\/p>/", $str) ){
+    if ( !preg_match("/<(p|table|figure|div|h[1-6])>.+<\/$1>/", $str) ){
       $str = '<p>'.$str.'</p>';
     }
     $str = preg_replace("/\n\n/", "</p> <p>", $str);
+    $str = trim($str);
+    $str = preg_replace("/<p>\s*<\/p>/", "", $str);
     $str = preg_replace("/\n/", "<br />", $str);
-    $str = preg_replace("/<p><\/p>/", "", $str);
     $str = trim($str);
     
     return $str;
@@ -72,7 +75,7 @@ abstract class StringHelper
    * @param  string  $html  Html content
    * @return string  Cleaned html
    */
-  public static function cleanRedactor($html)
+  /* public static function cleanRedactor($html)
   {
     $html = str_replace('&nbsp;', ' ', $html);
     
@@ -100,7 +103,7 @@ abstract class StringHelper
     $html = preg_replace("/ allowfullscreen=\"(true)?\"/", " allowfullscreen", $html);
     
     return $html;
-  }
+  } */
   
   /**
    * Replace accented characters by the non accented one
@@ -207,9 +210,26 @@ abstract class StringHelper
    */
   public static function toFilename(string $str)
   {
-    $clean = implode(' ', self::splitCamelCase($str));
+    $words = preg_split("/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/", $str); //, -1, PREG_SPLIT_NO_EMPTY);
+    $clean = implode(' ', $words);
+    // $clean = implode(' ', self::splitCamelCase($str));
     $clean = self::toSlug($clean);
     $clean = self::toDashSeparated($clean);
+    return $clean;
+  }
+  
+  /**
+   * Convert a string into a valid filename
+   *
+   * @param  string  $str  The string input
+   * @return string 
+   */
+  public static function toSlugUnderscoreUppercase(string $str)
+  {
+    $clean = implode(' ', self::splitCamelCase($str));
+    $clean = self::toSlug($clean);
+    $clean = self::toUnderscoreSeparated($clean);
+    $clean = strtoupper($clean);
     return $clean;
   }
   
